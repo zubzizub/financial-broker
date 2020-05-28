@@ -19,4 +19,9 @@ $app->get('/', function (Request $request, Response $response, $args) {
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+$app->get('/api', function (Request $request, Response $response, $args) {
+    $response->getBody()->write(json_encode(['name' => 'api', 'version' => '1.1']));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
 $app->run();

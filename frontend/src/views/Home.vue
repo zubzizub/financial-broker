@@ -1,18 +1,33 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Broker App"/>
+    <div class="jumbotron">
+      <h1>Welcome to App</h1>
+      <p>
+        Congratulations! You have successfully created new application.
+      </p>
+      <ApiStatus/>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+  // @ is an alias to /src
+  import ApiStatus from '@/components/ApiStatus.vue'
 
-export default {
-  name: 'Home',
-  components: {
-    HelloWorld
+  export default {
+    name: 'home',
+    components: {
+      ApiStatus
+    }
   }
-}
 </script>
+
+<style lang="scss">
+  .jumbotron {
+    padding: 2rem;
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+</style>

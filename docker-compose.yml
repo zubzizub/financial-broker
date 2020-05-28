@@ -16,6 +16,8 @@ services:
       dockerfile: development/nginx/Dockerfile
     volumes:
       - ./frontend:/app
+    depends_on:
+      - api-php-fpm
 
   frontend-nodejs:
     image: node:10.11-jessie

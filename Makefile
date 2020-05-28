@@ -1,7 +1,7 @@
 init: docker-down-clear docker-pull docker-build docker-up api-init frontend-init frontend-build
 up: docker-up
 down: docker-down
-restart: down up
+restart: down docker-build up
 
 docker-up:
 	docker-compose up -d
