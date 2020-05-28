@@ -17,6 +17,13 @@ services:
     volumes:
       - ./frontend:/app
 
+  frontend-nodejs:
+    image: node:10.11-jessie
+    volumes:
+      - ./frontend:/var/www/frontend
+    working_dir: /var/www/frontend
+    tty: true
+
   api:
     build:
       context: api/docker
