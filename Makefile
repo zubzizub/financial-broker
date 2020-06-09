@@ -1,4 +1,4 @@
-init: docker-down-clear docker-pull docker-build docker-up api-init frontend-init frontend-build
+init: docker-down-clear docker-pull docker-build docker-up api-init
 up: docker-up
 down: docker-down
 restart: down docker-build up
@@ -23,7 +23,7 @@ api-init: api-composer-install
 api-composer-install:
 	docker-compose run --rm api-php-cli composer install
 
-frontend-init: frontend-npm-install
+frontend-init: frontend-npm-install frontend-build
 
 frontend-npm-install:
 	docker-compose run --rm frontend-nodejs npm install
