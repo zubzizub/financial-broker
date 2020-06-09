@@ -31,6 +31,9 @@ frontend-npm-install:
 frontend-build:
 	docker-compose run --rm frontend-nodejs npm run build
 
+frontend-watch:
+	docker-compose run --rm frontend-nodejs npm run watch
+
 build: build-gateway build-frontend build-api
 
 build-gateway:
