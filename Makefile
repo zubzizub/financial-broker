@@ -1,7 +1,10 @@
 init: docker-down-clear docker-pull docker-build docker-up api-init
-up: docker-up
+up: apache-stop docker-up
 down: docker-down
 restart: down docker-build up
+
+apache-stop:
+	sudo service apache2 stop
 
 docker-up:
 	docker-compose up -d
@@ -33,6 +36,9 @@ frontend-build:
 
 frontend-watch:
 	docker-compose run --rm frontend-nodejs npm run watch
+
+docker-nodejs-in:
+	docker-compose exec frontend-nodejs bash
 
 build: build-gateway build-frontend build-api
 
