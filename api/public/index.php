@@ -39,6 +39,8 @@ $container->set(
 
 $app = AppFactory::createFromContainer($container);
 
+$app->addErrorMiddleware(true, true, true);
+
 (require __DIR__ . '/../config/routes.php')($app);
 
 $app->get(
