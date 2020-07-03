@@ -7,11 +7,17 @@
   },
   "require": {
     "php": "^7.4",
+    "ext-json": "*",
+    "php-di/php-di": "^6.2",
     "slim/psr7": "^1.1",
-    "slim/slim": "^4.5",
-    "ext-json": "*"
+    "slim/slim": "^4.5"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Api\\": "src"
+    }
   }
 }
