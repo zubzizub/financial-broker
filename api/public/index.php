@@ -43,14 +43,4 @@ $app->addErrorMiddleware(true, true, true);
 
 (require __DIR__ . '/../config/routes.php')($app);
 
-$app->get(
-    '/api',
-    function (Request $request, Response $response, $args) {
-        $test = $this->get('test2');
-
-        $response->getBody()->write(json_encode(['name' => 'api', 'version' => $test->name]));
-        return $response->withHeader('Content-Type', 'application/json');
-    }
-);
-
 $app->run();
