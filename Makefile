@@ -40,6 +40,9 @@ frontend-build:
 frontend-watch:
 	docker-compose run --rm frontend-nodejs npm run watch
 
+docker-php-in:
+	docker-compose exec api-php-fpm sh
+
 docker-nodejs-in:
 	docker-compose exec frontend-nodejs bash
 

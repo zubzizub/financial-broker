@@ -39,7 +39,7 @@ $container->set(
 
 $app = AppFactory::createFromContainer($container);
 
-$app->addErrorMiddleware(true, true, true);
+$app->addErrorMiddleware((bool)getenv('APP_DEBUG'), true, true);
 
 (require __DIR__ . '/../config/routes.php')($app);
 
