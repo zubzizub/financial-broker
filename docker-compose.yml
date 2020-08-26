@@ -41,7 +41,12 @@ services:
       dockerfile: development/php-fpm/Dockerfile
     environment:
       APP_DEBUG: 1
+      APP_ENV: dev
       PHP_IDE_CONFIG: serverName=API
+      DB_HOST: api-postgres
+      DB_USER: app
+      DB_PASSWORD: secret
+      DB_NAME: app
     volumes:
       - ./api:/app
 
@@ -49,5 +54,27 @@ services:
     build:
       context: api/docker
       dockerfile: development/php-cli/Dockerfile
+    environment:
+      APP_DEBUG: 1
+      APP_ENV: dev
+      PHP_IDE_CONFIG: serverName=API
+      DB_HOST: api-postgres
+      DB_USER: app
+      DB_PASSWORD: secret
+      DB_NAME: app
     volumes:
       - ./api:/app
+
+  api-postgres:
+    image: postgres:12.2-alpine
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: app
+    volumes:
+      - api-postgres:/var/lib/postgresql/data
+    ports:
+      - "54321:5432"
+
+volumes:
+  api-postgres:
