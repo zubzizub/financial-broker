@@ -1,6 +1,6 @@
 <?php
 
-namespace Api\Infrastructure;
+namespace App\Infrastructure;
 
 interface UppercaseInterface
 {

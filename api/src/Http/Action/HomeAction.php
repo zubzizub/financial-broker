@@ -1,30 +1,24 @@
 <?php
 
-namespace Api\Http\Action;
+namespace App\Http\Action;
 
-use Api\Http\JsonResponse;
-use Api\Infrastructure\UppercaseInterface;
+use App\Http\JsonResponse;
+use JsonException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
-class HomeAction implements \Psr\Http\Server\RequestHandlerInterface
+class HomeAction implements RequestHandlerInterface
 {
-    private $upper;
-
-    public function __construct(UppercaseInterface $upper)
-    {
-        $this->upper = $upper;
-    }
-
     /**
      * @param ServerRequestInterface $request
      * @return ResponseInterface
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         return new JsonResponse([
-            'name' => $this->upper->modify('App API'),
+            'name' => 'App API',
             'version' => '1.0',
         ]);
     }

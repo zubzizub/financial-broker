@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Api\Http;
+namespace App\Http;
 
 use Slim\Psr7\Factory\StreamFactory;
 use Slim\Psr7\Headers;
@@ -13,7 +13,6 @@ class JsonResponse extends Response
     /**
      * @param mixed $data
      * @param int $status
-     * @throws \JsonException
      */
     public function __construct($data, int $status = 200)
     {

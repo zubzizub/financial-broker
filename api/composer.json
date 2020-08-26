@@ -7,17 +7,40 @@
   },
   "require": {
     "php": "^7.4",
-    "ext-json": "*",
-    "php-di/php-di": "^6.2",
-    "slim/psr7": "^1.1",
-    "slim/slim": "^4.5"
+    "ext-json": "^7.4",
+    "doctrine/migrations": "^2.2",
+    "doctrine/orm": "^2.7",
+    "finesse/swiftmailer-defaults-plugin": "^2.0",
+    "laminas/laminas-config-aggregator": "^1.2",
+    "monolog/monolog": "^2.0",
+    "php-di/php-di": "^6.0",
+    "ramsey/uuid": "^3.9",
+    "sentry/sdk": "^2.1",
+    "slim/psr7": "^1.0",
+    "slim/slim": "^4.3",
+    "swiftmailer/swiftmailer": "^6.2",
+    "symfony/console": "^5.0",
+    "symfony/validator": "^5.0",
+    "webmozart/assert": "^1.6",
+    "league/oauth2-server": "^7.2"
   },
   "require-dev": {
-    "roave/security-advisories": "dev-master"
+    "dms/phpunit-arraysubset-asserts": "^0.2.0",
+    "doctrine/data-fixtures": "^1.4",
+    "guzzlehttp/guzzle": "^6.5",
+    "overtrue/phplint": "^1.2",
+    "phpunit/phpunit": "^9.0",
+    "roave/security-advisories": "dev-master",
+    "vimeo/psalm": "^3.8"
   },
   "autoload": {
     "psr-4": {
-      "Api\\": "src"
+      "App\\": "src"
     }
+  },
+  "scripts": {
+    "test": "phpunit --colors=always",
+    "test-coverage": "phpunit --colors=always --coverage-html var/test/coverage",
+    "app": "php bin/app.php --ansi"
   }
 }

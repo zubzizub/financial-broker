@@ -2,27 +2,21 @@
 
 declare(strict_types=1);
 
-use Api\Http\Action;
+use App\Http\Action\V1\Market\CreateAction;
+use App\Http\Action;
+use App\Http\Action\V1\Market\GetAction;
 use Slim\App;
-use Slim\Psr7\Request;
-use Slim\Psr7\Response;
+use Slim\Routing\RouteCollectorProxy;
 
-return function (App $app) {
+return static function (App $app): void {
+    $app->get('/', Action\HomeAction::class);
 
-    $app->get('/', Action\HomeAction::class . ':handle');
+    $app->group('/v1', function (RouteCollectorProxy $group): void {
 
-    $app->get('/error', function(Request $request){
-        throw new \Slim\Exception\HttpNotFoundException($request);
+        $group->group('/market', function (RouteCollectorProxy $group): void {
+
+            $group->get('/instrument', GetAction::class);
+            $group->post('/instrument', CreateAction::class);
+        });
     });
-
-    $app->get(
-        '/api',
-        function (Request $request, Response $response, $args) {
-
-            $test = $this->get('test2');
-
-            $response->getBody()->write(json_encode(['name' => 'api', 'version' => $test->name]));
-            return $response->withHeader('Content-Type', 'application/json');
-        }
-    ); 
 };
