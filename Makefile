@@ -1,4 +1,6 @@
-init: docker-down-clear docker-pull docker-build docker-up api-init
+init: docker-down-clear \
+	docker-pull docker-build up \
+	api-init
 up: apache-stop docker-up
 down: docker-down
 restart: down docker-build up
@@ -21,10 +23,25 @@ docker-pull:
 docker-build:
 	docker-compose build
 
-api-init: api-composer-install
+api-init: api-permissions api-composer-install api-migrations api-fixtures
+
+api-permissions:
+	docker run --rm -v ${PWD}/api:/app -w /app alpine chmod 777 var/cache var/log var/test
+
+api-rules:
+	docker run --rm -v ${PWD}/api:/app -w /app alpine chown -R 1000:1000 .
 
 api-composer-install:
 	docker-compose run --rm api-php-cli composer install
+
+api-wait-db:
+	docker-compose run --rm api-php-cli wait-for-it api-postgres:5432 -t 30
+
+api-migrations:
+	docker-compose run --rm api-php-cli composer app migrations:migrate
+
+api-fixtures:
+	docker-compose run --rm api-php-cli composer app fixtures:load
 
 api-composer-update:
 	docker-compose run --rm api-php-cli composer update
