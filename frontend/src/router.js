@@ -14,19 +14,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('./views/About.vue')
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('./views/Login.vue')
-    },
-    {
-      path: '/signup',
-      name: 'signup',
-      component: () => import('./views/SignUp.vue')
+      path: '/stock',
+      name: 'stock',
+      component: () => import('./views/Stock/Get.vue')
     }
   ]
 })
