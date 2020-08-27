@@ -49,6 +49,7 @@ api-migrations-validate:
 
 api-lint:
 	docker-compose run --rm api-php-cli composer lint
+	docker-compose run --rm api-php-cli composer cs-check
 
 api-fixtures:
 	docker-compose run --rm api-php-cli composer app fixtures:load

@@ -15,8 +15,7 @@ class Handler
     public function __construct(
         InstrumentRepositoryInterface $instrumentRepository,
         FlusherInterface $flusher
-    )
-    {
+    ) {
         $this->instrumentRepository = $instrumentRepository;
         $this->flusher = $flusher;
     }
