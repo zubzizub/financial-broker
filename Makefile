@@ -4,6 +4,7 @@ init: docker-down-clear \
 up: apache-stop docker-up
 down: docker-down
 restart: down docker-build up
+check: api-lint api-migrations-validate
 
 apache-stop:
 	sudo service apache2 stop
@@ -45,6 +46,9 @@ api-migrations-diff:
 
 api-migrations-validate:
 	docker-compose run --rm api-php-cli composer app orm:validate-schema
+
+api-lint:
+	docker-compose run --rm api-php-cli composer lint
 
 api-fixtures:
 	docker-compose run --rm api-php-cli composer app fixtures:load

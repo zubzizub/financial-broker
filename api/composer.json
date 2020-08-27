@@ -39,6 +39,7 @@
     }
   },
   "scripts": {
+    "lint": "phplint",
     "test": "phpunit --colors=always",
     "test-coverage": "phpunit --colors=always --coverage-html var/test/coverage",
     "app": "php bin/app.php --ansi"
