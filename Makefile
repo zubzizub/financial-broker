@@ -26,7 +26,7 @@ docker-build:
 api-init: api-permissions api-composer-install api-migrations api-fixtures
 
 api-permissions:
-	docker run --rm -v ${PWD}/api:/app -w /app alpine chmod 777 var/cache var/log var/test
+	docker run --rm -v ${PWD}/api:/app -w /app alpine chmod -R 777 var/cache var/log var/test
 
 api-rules:
 	docker run --rm -v ${PWD}/api:/app -w /app alpine chown -R 1000:1000 .
@@ -39,6 +39,12 @@ api-wait-db:
 
 api-migrations:
 	docker-compose run --rm api-php-cli composer app migrations:migrate
+
+api-migrations-diff:
+	docker-compose run --rm api-php-cli composer app migrations:diff
+
+api-migrations-validate:
+	docker-compose run --rm api-php-cli composer app orm:validate-schema
 
 api-fixtures:
 	docker-compose run --rm api-php-cli composer app fixtures:load

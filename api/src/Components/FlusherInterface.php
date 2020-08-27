@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components;
 
-interface Flusher
+interface FlusherInterface
 {
     public function flush(): void;
 }
