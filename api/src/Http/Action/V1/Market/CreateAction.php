@@ -29,6 +29,9 @@ class CreateAction implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        /**
+         * @psalm-var array{code:?string, title:?string} $data
+         */
         $data = $request->getParsedBody();
 
         $command = new Command();

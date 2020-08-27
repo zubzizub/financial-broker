@@ -9,14 +9,14 @@ use Psr\Container\ContainerInterface;
 
 return [
     FlusherInterface::class => function (ContainerInterface $container) {
-        return new Flusher(
-            $container->get(EntityManagerInterface::class)
-        );
+        /** @var EntityManagerInterface $entityManager */
+        $entityManager = $container->get(EntityManagerInterface::class);
+        return new Flusher($entityManager);
     },
 
     InstrumentRepositoryInterface::class => function (ContainerInterface $container) {
-        return new InstrumentRepositoryDoctrine(
-            $container->get(EntityManagerInterface::class)
-        );
+        /** @var EntityManagerInterface $entityManager */
+        $entityManager = $container->get(EntityManagerInterface::class);
+        return new InstrumentRepositoryDoctrine($entityManager);
     }
 ];
