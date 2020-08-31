@@ -1,0 +1,66 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a broker.",
+    "version": "1.0.0",
+    "title": "broker"
+  },
+  "host": "api.broker.loc",
+  "basePath": "/v1",
+  "tags": [
+    {
+      "name": "instrument",
+      "description": ""
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/market/instrument": {
+      "post": {
+        "tags": [
+          "instrument"
+        ],
+        "summary": "Add a new instrument to the market",
+        "description": "",
+        "operationId": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Instrument object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Instrument"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Instrument": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

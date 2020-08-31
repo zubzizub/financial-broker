@@ -80,6 +80,8 @@ services:
 
   docs:
     image: swaggerapi/swagger-ui
+    environment:
+      SWAGGER_JSON: /app/swagger.json
     volumes:
       - ./docs:/app
     ports:
