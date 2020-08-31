@@ -9,4 +9,6 @@ interface InstrumentRepositoryInterface
     public function add(Instrument $instrument): void;
 
     public function hasByCode(string $code): bool;
+
+    public function findAll(): array;
 }
