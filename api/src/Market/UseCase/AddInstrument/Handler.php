@@ -27,7 +27,7 @@ class Handler
      */
     public function handle(Command $command): string
     {
-        $instrument = new Instrument($command->code, $command->title);
+        $instrument = new Instrument($command->code, $command->name);
 
         $this->instrumentRepository->add($instrument);
         $this->flusher->flush();

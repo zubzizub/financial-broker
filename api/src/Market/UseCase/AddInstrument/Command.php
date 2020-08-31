@@ -14,5 +14,5 @@ class Command
     /**
      * @Assert\NotBlank()
      */
-    public string $title = '';
+    public string $name = '';
 }

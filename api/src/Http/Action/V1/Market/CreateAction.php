@@ -30,13 +30,13 @@ class CreateAction implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         /**
-         * @psalm-var array{code:?string, title:?string} $data
+         * @psalm-var array{code:?string, name:?string} $data
          */
         $data = $request->getParsedBody();
 
         $command = new Command();
         $command->code = $data['code'] ?? '';
-        $command->title = $data['title'] ?? '';
+        $command->name = $data['name'] ?? '';
 
         $this->validator->validate($command);
 

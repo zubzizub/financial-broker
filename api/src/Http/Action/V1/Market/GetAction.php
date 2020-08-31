@@ -11,6 +11,6 @@ class GetAction implements RequestHandlerInterface
 {
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        return new JsonResponse(['title' => 'Apple']);
+        return new JsonResponse(['name' => 'Apple']);
     }
 }
