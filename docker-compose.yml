@@ -9,6 +9,7 @@ services:
     depends_on:
       - frontend
       - api
+      - docs
 
   frontend:
     build:
@@ -23,6 +24,7 @@ services:
     image: node:10.11-jessie
     volumes:
       - ./frontend:/var/www/frontend
+      - ./docs:/var/www/docs
     working_dir: /var/www/frontend
     tty: true
 
@@ -75,6 +77,13 @@ services:
       - api-postgres:/var/lib/postgresql/data
     ports:
       - "54321:5432"
+
+  docs:
+    image: swaggerapi/swagger-ui
+    volumes:
+      - ./docs:/app
+    ports:
+      - "99:8080"
 
 volumes:
   api-postgres:

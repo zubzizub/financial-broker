@@ -5,6 +5,8 @@ up: apache-stop docker-up
 down: docker-down
 restart: down docker-build up
 check: api-lint api-migrations-validate
+analyze: api-psalm
+docs: api-docs
 
 apache-stop:
 	sudo service apache2 stop
@@ -59,6 +61,9 @@ api-fixtures:
 
 api-composer-update:
 	docker-compose run --rm api-php-cli composer update
+
+api-docs:
+	docker-compose run --rm docs sh /usr/share/nginx/run.sh &
 
 frontend-init: frontend-npm-install frontend-build
 
