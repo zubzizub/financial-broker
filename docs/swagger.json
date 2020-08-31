@@ -44,7 +44,27 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "created"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "instrument"
+        ],
+        "summary": "Get all instruments",
+        "description": "",
+        "operationId": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
           }
         }
       }
