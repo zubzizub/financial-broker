@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Market\RepositoryDoctrine\Types\DirectionType;
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\Common\EventManager;
@@ -77,7 +78,9 @@ return [
             'metadata_dirs' => [
                 __DIR__ . '/../../src/Market/Entity'
             ],
-            'types' => [],
+            'types' => [
+                DirectionType::NAME => DirectionType::class
+            ],
         ],
     ],
 ];
