@@ -11,7 +11,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Exception;
 
-class CreateAction implements RequestHandlerInterface
+class InstrumentCreateAction implements RequestHandlerInterface
 {
     private Handler $handler;
     private Validator $validator;

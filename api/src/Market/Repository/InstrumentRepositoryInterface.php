@@ -10,5 +10,7 @@ interface InstrumentRepositoryInterface
 
     public function hasByCode(string $code): bool;
 
+    public function findById(string $id): Instrument;
+
     public function findAll(): array;
 }

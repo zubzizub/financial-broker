@@ -6,6 +6,7 @@ use App\Market\Entity\Instrument;
 use App\Market\Repository\InstrumentRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use DomainException;
 
 class InstrumentRepositoryDoctrine implements InstrumentRepositoryInterface
 {
@@ -26,6 +27,17 @@ class InstrumentRepositoryDoctrine implements InstrumentRepositoryInterface
     public function hasByCode(string $code): bool
     {
         return true;
+    }
+
+    public function findById(string $id): Instrument
+    {
+        /** @var Instrument $instrument */
+        $instrument = $this->repository->find($id);
+
+        if ($instrument === null) {
+            throw new DomainException('Instrument not found');
+        }
+        return $instrument;
     }
 
     /**
