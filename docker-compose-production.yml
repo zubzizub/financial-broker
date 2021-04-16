@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   gateway:
-    image: ${REGISTRY}/auction-gateway:${IMAGE_TAG}
+    image: ${REGISTRY}/broker-gateway:${IMAGE_TAG}
     restart: always
     ports:
       - "80:80"
@@ -10,22 +10,22 @@ services:
       - api
 
   frontend:
-    image: ${REGISTRY}/auction-frontend:${IMAGE_TAG}
+    image: ${REGISTRY}/broker-frontend:${IMAGE_TAG}
     restart: always
     depends_on:
       - api-php-fpm
 
   api:
-    image: ${REGISTRY}/auction-api:${IMAGE_TAG}
+    image: ${REGISTRY}/broker-api:${IMAGE_TAG}
     restart: always
     depends_on:
       - api-php-fpm
 
   api-php-fpm:
-    image: ${REGISTRY}/auction-api-php-fpm:${IMAGE_TAG}
+    image: ${REGISTRY}/broker-api-php-fpm:${IMAGE_TAG}
     restart: always
     environment:
       APP_DEBUG: 0
 
   api-php-cli:
-    image: ${REGISTRY}/auction-api-php-cli:${IMAGE_TAG}
+    image: ${REGISTRY}/broker-api-php-cli:${IMAGE_TAG}

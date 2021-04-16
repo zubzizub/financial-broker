@@ -1,1 +1,1 @@
-# Financial Broker (Slim + ReactJS)
+# Financial Broker (Slim + Vue)

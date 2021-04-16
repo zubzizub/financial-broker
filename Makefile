@@ -1,15 +1,12 @@
 init: docker-down-clear \
 	docker-pull docker-build up \
-	api-init
-up: apache-stop docker-up
+	api-init frontend-init
+up: docker-up
 down: docker-down
 restart: down docker-build up
 check: api-lint api-migrations-validate
 analyze: api-psalm
 docs: api-docs
-
-apache-stop:
-	sudo service apache2 stop
 
 docker-up:
 	docker-compose up -d
@@ -41,10 +38,10 @@ api-wait-db:
 	docker-compose run --rm api-php-cli wait-for-it api-postgres:5432 -t 30
 
 api-migrations:
-	docker-compose run --rm api-php-cli composer app migrations:migrate
+	docker-compose run --rm api-php-cli composer app migrations:migrate --no-interaction
 
 api-migrations-diff:
-	docker-compose run --rm api-php-cli composer app migrations:diff
+	docker-compose run --rm api-php-cli composer app migrations:diff --no-interaction
 
 api-migrations-validate:
 	docker-compose run --rm api-php-cli composer app orm:validate-schema
@@ -85,15 +82,15 @@ docker-nodejs-in:
 build: build-gateway build-frontend build-api
 
 build-gateway:
-	docker --log-level=debug build --pull --file=gateway/docker/production/nginx/Dockerfile --tag=${REGISTRY}/auction-gateway:${IMAGE_TAG} gateway/docker
+	docker --log-level=debug build --pull --file=gateway/docker/production/nginx/Dockerfile --tag=${REGISTRY}/broker-gateway:${IMAGE_TAG} gateway/docker
 
 build-frontend:
-	docker --log-level=debug build --pull --file=frontend/docker/production/nginx/Dockerfile --tag=${REGISTRY}/auction-frontend:${IMAGE_TAG} frontend
+	docker --log-level=debug build --pull --file=frontend/docker/production/nginx/Dockerfile --tag=${REGISTRY}/broker-frontend:${IMAGE_TAG} frontend
 
 build-api:
-	docker --log-level=debug build --pull --file=api/docker/production/php-fpm/Dockerfile --tag=${REGISTRY}/auction-api-php-fpm:${IMAGE_TAG} api
-	docker --log-level=debug build --pull --file=api/docker/production/nginx/Dockerfile --tag=${REGISTRY}/auction-api:${IMAGE_TAG} api
-	docker --log-level=debug build --pull --file=api/docker/production/php-cli/Dockerfile --tag=${REGISTRY}/auction-api-php-cli:${IMAGE_TAG} api
+	docker --log-level=debug build --pull --file=api/docker/production/php-fpm/Dockerfile --tag=${REGISTRY}/broker-api-php-fpm:${IMAGE_TAG} api
+	docker --log-level=debug build --pull --file=api/docker/production/nginx/Dockerfile --tag=${REGISTRY}/broker-api:${IMAGE_TAG} api
+	docker --log-level=debug build --pull --file=api/docker/production/php-cli/Dockerfile --tag=${REGISTRY}/broker-api-php-cli:${IMAGE_TAG} api
 
 try-build:
 	REGISTRY=localhost IMAGE_TAG=0 make build
@@ -101,21 +98,21 @@ try-build:
 push: push-gateway push-frontend push-api
 
 push-gateway:
-	docker push ${REGISTRY}/auction-gateway:${IMAGE_TAG}
+	docker push ${REGISTRY}/broker-gateway:${IMAGE_TAG}
 
 push-frontend:
-	docker push ${REGISTRY}/auction-frontend:${IMAGE_TAG}
+	docker push ${REGISTRY}/broker-frontend:${IMAGE_TAG}
 
 push-api:
-	docker push ${REGISTRY}/auction-api:${IMAGE_TAG}
-	docker push ${REGISTRY}/auction-api-php-fpm:${IMAGE_TAG}
-	docker push ${REGISTRY}/auction-api-php-cli:${IMAGE_TAG}
+	docker push ${REGISTRY}/broker-api:${IMAGE_TAG}
+	docker push ${REGISTRY}/broker-api-php-fpm:${IMAGE_TAG}
+	docker push ${REGISTRY}/broker-api-php-cli:${IMAGE_TAG}
 
 deploy:
 	ssh ${HOST} -p ${PORT} 'rm -rf site_${BUILD_NUMBER}'
 	ssh ${HOST} -p ${PORT} 'mkdir site_${BUILD_NUMBER}'
 	scp -P ${PORT} docker-compose-production.yml ${HOST}:site_${BUILD_NUMBER}/docker-compose-production.yml
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "COMPOSE_PROJECT_NAME=auction" >> .env'
+	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "COMPOSE_PROJECT_NAME=broker" >> .env'
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "REGISTRY=${REGISTRY}" >> .env'
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "IMAGE_TAG=${IMAGE_TAG}" >> .env'
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml pull'
